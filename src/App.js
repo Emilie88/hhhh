@@ -3,7 +3,8 @@ import styled from 'styled-components';
 //useDispatch permet d'envoyer une action dans le store
 //useSelectore permet de lire le store
 import { useDispatch,useSelector } from 'react-redux';
-import {useEffect} from 'react';
+
+import { add_question, set_question } from "./actions/action-type";
 
 const App = () => {
   //on recupere le gros objet state
@@ -12,15 +13,19 @@ const App = () => {
   //les cles du state
   const {count,questions,question,message} = useSelector(state => state);
   const dispatch = useDispatch();
-  const handleChange = (event) => {
-    const {name,value} = event.target;
-    dispatch({ type: "ON_CHANGE", name:name, value:value})
-  };
-  const handleSubmit = e => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch({ type : "ADD_QUESTION" });
-}
+    dispatch(add_question());
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // action.payload = { name : name, value : value }
+    dispatch(set_question({ name, value }));
+  };
 const Button = styled.button`
     /* Adapt the colors based on primary prop */
     background: ${props => props.primary ? "palevioletred" : "white"};
