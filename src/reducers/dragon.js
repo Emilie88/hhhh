@@ -37,13 +37,13 @@ let reducerDragon = (state = stateInit, action = {}) => {
                 };
        
         case DEL_DRAGON:
-            let registeredDragons = [...state.dragons];
+            let listDragons = [...state.dragons];
         
             console.log('dragon delete');
 
             return {
                 ...state,
-                dragons: registeredDragons.filter(dragon=>dragon !== action.payload.dragon),
+                dragons: listDragons.filter(dragon=>dragon !== action.payload.dragon),
                 dragon: '',
                 message: ''
             };
