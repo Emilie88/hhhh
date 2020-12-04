@@ -1,39 +1,45 @@
-import './App.css';
+// import './App.css';
 import styled from 'styled-components';
 //useDispatch permet d'envoyer une action dans le store
 //useSelectore permet de lire le store
 import { useDispatch,useSelector } from 'react-redux';
 
-import { add_question, set_question } from "./actions/action-type";
+import { set_dragon,add_dragon,reverse_dragons,del_dragon } from "./actions/action-type";
+
 
 const App = () => {
-  //on recupere le gros objet state
-  // const state = useSelector(state => state);
-
-  //les cles du state
-  const {count,questions,question,message} = useSelector(state => state);
+ 
+  const {number,dragons,dragon,text} = useSelector(state => state);
+  
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleChangeDragon= (e) => {
+    const { name, value } = e.target;  
+    dispatch(set_dragon({ name, value }));
+  };
+  const handleSubmitDragon = (e) => {
     e.preventDefault();
 
-    dispatch(add_question());
+    dispatch(add_dragon());
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    // action.payload = { name : name, value : value }
-    dispatch(set_question({ name, value }));
+  const handleDelete = (dragon) => {
+    dispatch(del_dragon({dragon}));
+   
   };
+
+  const handleReverse =()=>{
+    dispatch(reverse_dragons());
+  }
+
 const Button = styled.button`
     /* Adapt the colors based on primary prop */
     background: ${props => props.primary ? "palevioletred" : "white"};
     color: ${props => props.primary ? "white" : "palevioletred"};
 
-    font-size: 1em;
+    font-size: ${props => props.primary ? " 1em" : "0.8em"};
     margin: 1em;
-    padding: 0.25em 1em;
+    padding:${props => props.primary ? " 0.25em 1em" : "0em 0.2em"};
     border: 2px solid palevioletred;
     border-radius: 3px;
   `;
@@ -41,27 +47,49 @@ const Button = styled.button`
     color: cornflowerblue;
     list-style: none;
     `;
-
-
+    const Wrapper =  styled.section`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  `;
+    const Div = styled.div`
+    grid-column: 1 / 3;
+    grid-row: 1;`;
+    const DivTwo = styled.div`
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    `;
 
   
-  return (
-    <div className="App">
-      <p>Hello: {count} questions</p>    
-      <form onSubmit={handleSubmit}>
-        <p>{message}</p>
-          <p>Saisir la question: 
-            <span> <input type="text"  name='question' value ={question} onChange={handleChange}/></span> 
-      </p>  
-      <p><Button primary>Add question</Button></p> 
-      </form>  
-      { questions.length > 0 && (
-              <ul>
-                {questions.map((question, i) => <Li key={i} >Question n° {i} : <span>{question}</span></Li>)}
-              </ul>
-          )} 
-    </div>
-  );
-}
-
-export default App;
+    return (
+      <div className="App">
+         <h2>{number} nom/s de dragons</h2>    
+        <Wrapper>
+          <Div>
+            <Button onClick={handleReverse}>Reverse Order</Button>
+          <form onSubmit={handleSubmitDragon}>
+            <p>{text}</p>
+              <p>Saisir un nom de dragon: 
+                <span> <input type="text"  name='dragon' value ={dragon} onChange={handleChangeDragon}/></span> 
+          </p>  
+          <p><Button primary>Add dragon</Button></p> 
+          </form>  
+          </Div>
+          <DivTwo>
+            { dragons.length > 0 && (
+                    <ul>
+                      {dragons.map((dragon, i) => <Li key={i} >{dragon}  
+                        <Button  onClick={()=>handleDelete(dragon)}>
+                            Delete
+                        </Button></Li>)}
+                    </ul>
+              )} 
+            </DivTwo>
+          </Wrapper>
+      </div>
+    );
+  }
+  
+  export default App;
+  
