@@ -6,10 +6,11 @@ import reportWebVitals from './reportWebVitals';
 
 //utiliser le Provider pour react
 import {Provider} from 'react-redux';
-import reducerDragon from './reducers/dragon';
+import reducer from './reducers/index';
+// import reducer from './reducers/question';
 //creation du store
 import {createStore} from 'redux';
-const store = createStore(reducerDragon);
+const store = createStore(reducer);
 
 
 

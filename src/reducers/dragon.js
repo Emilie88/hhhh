@@ -28,24 +28,22 @@ let reducerDragon = (state = stateInit, action = {}) => {
                 dragon : ''
               }
         case SET_DRAGON:
-                const { name, value } = action.payload;
+                const { value } = action.payload;
 
                 return {
                     ...state,
-                    [name]: value, 
+                    dragon: value, 
                     text : ''
                 };
        
         case DEL_DRAGON:
             let listDragons = [...state.dragons];
-        
-            console.log('dragon delete');
 
             return {
                 ...state,
                 dragons: listDragons.filter(dragon=>dragon !== action.payload.dragon),
                 dragon: '',
-                message: ''
+                text: ''
             };
 
         case REVERSE_DRAGONS:

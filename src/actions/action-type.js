@@ -1,4 +1,4 @@
-import { ON_CHANGE, ADD_QUESTION,ADD_DRAGON,SET_DRAGON,DEL_DRAGON,REVERSE_DRAGONS } from '../constants/action';
+import { ON_CHANGE, ADD_QUESTION,ADD_DRAGON,SET_DRAGON,DEL_DRAGON,REVERSE_DRAGONS,ADD_CHEVALIER,SET_CHEVALIER,DEL_CHEVALIER,REVERSE_CHEVALIER, INCREMENT } from '../constants/action';
 
 export const set_question = payload => {
 
@@ -38,4 +38,37 @@ export const reverse_dragons = () => {
     return {
         type: REVERSE_DRAGONS,
     }
+}
+
+export const add_chevalier = payload => {
+    return {
+        type: ADD_CHEVALIER, payload
+    }
+};
+
+export const set_chevalier = payload => {
+
+    return {
+        type: SET_CHEVALIER, payload
+    }
+}
+
+export const del_chevalier = payload => {
+
+    return {
+        type: DEL_CHEVALIER, payload
+    }
+}
+
+export const reverse_chevalier = () => {
+
+    return {
+        type: REVERSE_CHEVALIER,
+    }
+}
+export const increment = payload=>{
+    return {
+        type: INCREMENT, payload
+    }
+  
 }
